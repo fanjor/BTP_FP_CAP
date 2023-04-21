@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="SalesOrderService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Header" EntityType="SalesOrderService.Header">
+                    <NavigationPropertyBinding Path="OrderStatus" Target="Status"/>
+                </EntitySet>
+                <EntitySet Name="Items" EntityType="SalesOrderService.Items">
+                    <NavigationPropertyBinding Path="Currency" Target="Currency"/>
+                    <NavigationPropertyBinding Path="UnitOfMeasure" Target="UnitOfMeasure"/>
+                </EntitySet>
+                <EntitySet Name="Currency" EntityType="SalesOrderService.Currency"/>
+                <EntitySet Name="UnitOfMeasure" EntityType="SalesOrderService.UnitOfMeasure"/>
+                <EntitySet Name="Status" EntityType="SalesOrderService.Status"/>
+            </EntityContainer>
+            <EntityType Name="Header">
+                <Key>
+                    <PropertyRef Name="HeaderID"/>
+                </Key>
+                <Property Name="HeaderID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Email" Type="Edm.String" MaxLength="30" Nullable="false"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="30" Nullable="false"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="30" Nullable="false"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="30"/>
+                <Property Name="CreateOn" Type="Edm.Date"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTimeOffset"/>
+                <NavigationProperty Name="OrderStatus" Type="SalesOrderService.Status">
+                    <ReferentialConstraint Property="OrderStatus_ID" ReferencedProperty="StatusID"/>
+                </NavigationProperty>
+                <Property Name="OrderStatus_ID" Type="Edm.Int32"/>
+                <Property Name="ImageURL" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Items">
+                <Property Name="HeaderID" Type="Edm.Guid"/>
+                <Property Name="ItemID" Type="Edm.Guid"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="40" Nullable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="40"/>
+                <Property Name="ReleaseDate" Type="Edm.Date"/>
+                <Property Name="DiscontinuedDate" Type="Edm.Date"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="Price" Type="Edm.Decimal" Scale="2" Precision="12"/>
+                <NavigationProperty Name="Currency" Type="SalesOrderService.Currency">
+                    <ReferentialConstraint Property="Currency_ID" ReferencedProperty="CurrencyID"/>
+                </NavigationProperty>
+                <Property Name="Currency_ID" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Height" Type="Edm.Decimal" Scale="3" Precision="15"/>
+                <Property Name="Width" Type="Edm.Decimal" Scale="3" Precision="13"/>
+                <Property Name="Depth" Type="Edm.Decimal" Scale="2" Precision="12"/>
+                <NavigationProperty Name="UnitOfMeasure" Type="SalesOrderService.UnitOfMeasure">
+                    <ReferentialConstraint Property="UnitOfMeasure_ID" ReferencedProperty="UoMID"/>
+                </NavigationProperty>
+                <Property Name="UnitOfMeasure_ID" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="Currency">
+                <Key>
+                    <PropertyRef Name="CurrencyID"/>
+                </Key>
+                <Property Name="CurrencyID" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="UnitOfMeasure">
+                <Key>
+                    <PropertyRef Name="UoMID"/>
+                </Key>
+                <Property Name="UoMID" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="Status">
+                <Key>
+                    <PropertyRef Name="StatusID"/>
+                </Key>
+                <Property Name="StatusID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <Annotations Target="SalesOrderService.Header">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Email"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="FirstName"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LastName"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Sales Order"/>
+                        <PropertyValue Property="TypeNamePlural" String="Sales Orders"/>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="LastName"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Header"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Items"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Header">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Email"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Items">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ItemData/Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/Email">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Common.Label" String="Email"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/FirstName">
+                <Annotation Term="Common.Label" String="First Name"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/LastName">
+                <Annotation Term="Common.Label" String="Last Name"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/Country">
+                <Annotation Term="Common.Label" String="Country"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/CreateOn">
+                <Annotation Term="Common.Label" String="Create On"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/DeliveryDate">
+                <Annotation Term="Common.Label" String="Delivery Date"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/OrderStatus">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/OrderStatus_ID">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Header/ImageURL">
+                <Annotation Term="Common.Label" String="Image URL"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" String="Header.ID"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" String="Name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" String="Description"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Sales Order Item"/>
+                        <PropertyValue Property="TypeNamePlural" String="Sales Order Items"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Name">
+                <Annotation Term="Common.Label" String="Item Name"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Description">
+                <Annotation Term="Common.Label" String="Item Description"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/ReleaseDate">
+                <Annotation Term="Common.Label" String="Release Date"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/DiscontinuedDate">
+                <Annotation Term="Common.Label" String="Discontinued Date"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Quantity">
+                <Annotation Term="Common.Label" String="Quantity"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Price">
+                <Annotation Term="Common.Label" String="Price"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Currency">
+                <Annotation Term="Common.Label" String="Currency"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Currency_ID">
+                <Annotation Term="Common.Label" String="Currency"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Height">
+                <Annotation Term="Common.Label" String="Heigth"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Width">
+                <Annotation Term="Common.Label" String="Width"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/Depth">
+                <Annotation Term="Common.Label" String="Depth"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/UnitOfMeasure">
+                <Annotation Term="Common.Label" String="Unit of Measure"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Items/UnitOfMeasure_ID">
+                <Annotation Term="Common.Label" String="Unit of Measure"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.EntityContainer/Currency">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Currency/CurrencyID">
+                <Annotation Term="Common.Label" String="Currency ID"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Currency/Description">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.EntityContainer/UnitOfMeasure">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SalesOrderService.UnitOfMeasure/UoMID">
+                <Annotation Term="Common.Label" String="UofM ID"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.UnitOfMeasure/Description">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.EntityContainer/Status">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Status/StatusID">
+                <Annotation Term="Common.Label" String="Status ID"/>
+            </Annotations>
+            <Annotations Target="SalesOrderService.Status/Description">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

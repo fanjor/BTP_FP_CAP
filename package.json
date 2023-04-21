@@ -10,9 +10,14 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "@sap/ux-specification": "^1.108.3",
     "sqlite3": "^5.1.6"
   },
   "scripts": {
-    "start": "cds watch"
-  }
+    "start": "cds watch",
+    "watch-salesorder": "cds watch --open salesorder/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/salesorder"
+  ]
 }

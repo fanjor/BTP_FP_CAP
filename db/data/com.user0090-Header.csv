@@ -1,0 +1,4 @@
+ID,Email,FirstName,LastName,Country,CreateOn,DeliveryDate,OrderStatus.ID,ImageURL,
+bf9b0c4c-d99b-447d-8a1d-100e0a3e5026,john.smith@gmail.com,John,Smith,United States of America,20230315,,1,,
+c512667f-ca5d-4cb7-b8b5-7c75f97d1db3,marie.weber@mcgil.ca,Marie,Weber,Canada,20230410,,2,,
+44c26d6b-3ed2-436c-a68e-0289b60179ea,pauline.breton@grenoble.fr,Pauline,Breton,France,20230405,,1,,
