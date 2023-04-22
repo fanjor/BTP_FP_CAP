@@ -1,4 +1,4 @@
-using SalesOrderService as service from '../../srv/customer-service';
+using salesservice as service from '../../srv/sales-service';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -92,7 +92,7 @@ annotate service.Header with @(
     UI.Facets           : [{
         $Type : 'UI.ReferenceFacet',
         ID    : 'SalesOrderItems',
-        Target: 'itemdata/@UI.LineItem', // 'Items/@UI.LineItem',  //'@UI.FieldGroup#Items',  //** */ 'itemData/@UI.LineItem',  '@UI.FieldGroup#Items',
+        Target: '@UI.LineItem', // 'Items/@UI.LineItem',  //'@UI.FieldGroup#Items',  //** */ 'itemdata/@UI.LineItem',  '@UI.FieldGroup#Items',
         Label : 'Products'
     }],
 

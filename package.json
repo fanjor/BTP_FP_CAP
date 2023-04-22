@@ -15,9 +15,11 @@
   },
   "scripts": {
     "start": "cds watch",
-    "watch-salesorder": "cds watch --open salesorder/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-salesorder": "cds watch --open salesorder/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-salesapp": "cds watch --open salesapp/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "sapux": [
-    "app/salesorder"
+    "app/salesorder",
+    "app/salesapp"
   ]
 }

@@ -1,6 +1,6 @@
 using {com.user0090 as user0090} from '../db/schema';
 
-service SalesOrderService {
+service salesservice {
 
     //entity Header        as projection on user0090.Header;
     //entity Items         as projection on user0090.Items;
