@@ -1,4 +1,4 @@
-﻿Header.ID,Name,Description,ReleaseDate,DiscontinuedDate,Price,Currency.ID,Height,Width,Depth,Quantity,UnitOfMeasure.ID
+﻿header.ID,Name,Description,ReleaseDate,DiscontinuedDate,Price,Currency.ID,Height,Width,Depth,Quantity,UnitOfMeasure.ID
 bf9b0c4c-d99b-447d-8a1d-100e0a3e5026,Computer,Lenovo LX-1,20221201,20250630,800,USD,3.1,30,20,5,cm
 bf9b0c4c-d99b-447d-8a1d-100e0a3e5026,Cell Phone,Motorola J-Max,20230115,20241231,300,USD,8.5,3.5,1.5,10,cm
 c512667f-ca5d-4cb7-b8b5-7c75f97d1db3,Tablet,Samsung 99-4,20230410,20240331,200,USD,17.2,13.6,1.5,1,cm

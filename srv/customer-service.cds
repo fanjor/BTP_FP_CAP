@@ -23,7 +23,7 @@ service SalesOrderService {
 
     entity Items         as
         select from user0090.Items {
-            Header.ID   as HeaderID,
+            header.ID   as HeaderID,
             ID          as ItemID,
             Name,
             Description,
