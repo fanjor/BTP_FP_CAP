@@ -2,13 +2,24 @@ using {com.user0090 as user0090} from '../db/schema';
 
 service salesservice {
 
-    //entity Header        as projection on user0090.Header;
+    type deleteOrderReturn {
+        status  : String enum {
+            Success;
+            Fail
+        };
+        message : String
+    };
+
+
+    // entity Header        as projection on user0090.Header actions {
+    //     action deleteOrder(salesID : UUID) returns deleteOrderReturn;
+    // };
     //entity Items         as projection on user0090.Items;
     //entity Currency      as projection on user0090.Currency;
     //entity UnitOfMeasure as projection on user0090.UnitOfMeasure;
     //entity Status        as projection on user0090.Status;
 
-    entity Header        as
+    entity Header1        as
         select from user0090.Header {
             ID as HeaderID,
             Email @mandatory,
@@ -23,8 +34,8 @@ service salesservice {
 
     entity Items         as
         select from user0090.Items {
-            header.ID   as HeaderID,
-            ID          as ItemID,
+            header.ID as HeaderID,
+            ID        as ItemID,
             Name,
             Description,
             ReleaseDate,

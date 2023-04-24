@@ -15,9 +15,9 @@ entity Header : cuid {
     Country      : localized String(30);
     CreateOn     : Date default CURRENT_DATE;
     DeliveryDate : DateTime;
-    OrderStatus  : Association to one Status; 
+    OrderStatus  : Association to one Status;
     ImageURL     : String;
-    itemdata     : Association to many Items  //Composition of many Items
+    itemdata     : Association to many Items //Composition of many Items
                        on itemdata.header = $self;
 }
 
@@ -30,7 +30,7 @@ entity Items : cuid {
     ReleaseDate      : Date;
     DiscontinuedDate : Date;
     Price            : Decimal(12, 2);
-    Currency         : Association to one Currency; 
+    Currency         : Association to one Currency;
     Height           : Decimal(15, 3);
     Width            : Decimal(13, 3);
     Depth            : Decimal(12, 2);
@@ -43,8 +43,8 @@ entity Items : cuid {
 @readonly
 @cds.autoexpose
 entity Currency {
-    key ID          : String(3);
-        Description : localized String(30);
+    key ID          : String(3)            @title: 'Currency ID';
+        Description : localized String(30) @title: 'Description';
 }
 
 
@@ -52,8 +52,8 @@ entity Currency {
 @readonly
 @cds.autoexpose
 entity UnitOfMeasure {
-    key ID          : zde_meins;
-        Description : localized String(30);
+    key ID          : zde_meins            @title: 'Unit of Measure ID';
+        Description : localized String(30) @title: 'Description';
 }
 
 
@@ -61,6 +61,6 @@ entity UnitOfMeasure {
 @readonly
 @cds.autoexpose
 entity Status {
-    key ID          : Integer;
-        Description : localized String(30);
+    key ID          : Integer              @title: 'Status ID';
+        Description : localized String(30) @title: 'Description';
 }

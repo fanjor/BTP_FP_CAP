@@ -1,2 +1,8 @@
 ### Get Sale Orders 
-GET http://localhost:4004/sales-order/Header
+GET http://localhost:4004/salesservice/Header
+
+### Cancel Order - Action 
+POST  http://localhost:4004/salesservice/deleteOrder
+Content-Type: application/json
+
+{"salesID" : "44c26d6b-3ed2-436c-a68e-0289b60179ea"}

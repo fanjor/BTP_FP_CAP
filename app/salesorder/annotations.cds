@@ -15,8 +15,8 @@ annotate service.Header with @(
     // title
     UI.HeaderInfo       : {
         $Type         : 'UI.HeaderInfoType',
-        TypeName      : 'Sales Order', //'{i18n>SalesOrder}',
-        TypeNamePlural: 'Sales Orders', //'{i18n>SalesOrders}',
+        TypeName      : 'Sales Order', //'{i18n>SalesOrder}',  //'Sales Order',
+        TypeNamePlural: 'Sales Orders', //'{i18n>SalesOrders}', //'Sales Orders',
         ImageUrl      : ImageURL,
         Title         : {
             $Type: 'UI.DataField',
@@ -83,7 +83,7 @@ annotate service.Header with @(
     ],
 
     // facet for the table
-    UI.HeaderFacets        : [{
+    UI.HeaderFacets     : [{
         $Type : 'UI.ReferenceFacet',
         Target: '@UI.FieldGroup#Item' //'Items/@UI.LineItem'  '@UI.FieldGroup#Item'
     }],
@@ -147,11 +147,33 @@ annotate service.Header with {
     );
 };
 
-//annotate service.Header @(Capabilities: {
-//    Insertable: true,
-//    Deletable : true,
-//    Updatable : true,
-//});
+
+// // Annotations for Search Help Status
+// annotate service.Header with {
+//     //Status
+//     OrderStatus @(Common: {
+//         Text     : {
+//             $value                : OrderStatus,
+//             ![@UI.TextArrangement]: #TextOnly,
+//         },
+//         ValueList: {
+//             $Type         : 'Common.ValueListType',
+//             CollectionPath: 'UnitOfMeasure',
+//             Parameters    : [
+//                 {
+//                     $Type            : 'Common.ValueListParameterInOut',
+//                     LocalDataProperty: OrderStatus_ID,
+//                     ValueListProperty: 'UoMID'
+//                 },
+//                 {
+//                     $Type            : 'Common.ValueListParameterInOut',
+//                     LocalDataProperty: OrderStatus.Description,
+//                     ValueListProperty: 'Description'
+//                 }
+//             ]
+//         },
+//     });
+// };
 
 
 ///----------
@@ -371,41 +393,179 @@ annotate service.Items with {
 // });
 
 
+// Currency
+annotate service.Currency with @(UI: {
+
+    Identification : [{Value: Description}],
+
+    //Header Info
+    HeaderInfo     : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : 'Currency',
+        TypeNamePlural: 'Currencies',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: CurrencyID
+        },
+        Description   : {
+            $Type: 'UI.DataField',
+            Value: Description
+        }
+    },
+
+    //Selection Fields
+    SelectionFields: [CurrencyID],
+
+    //LineItem
+    LineItem       : [
+        {
+            $Type: 'UI.DataField',
+            Label: 'ID',
+            Value: CurrencyID,
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'Description',
+            Value: Description,
+        },
+    ],
+});
+
+
+// Unit of Measure
+annotate service.UnitOfMeasure with @(UI: {
+
+    Identification : [{Value: Description}],
+
+    //Header Info
+    HeaderInfo     : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : 'Unit of Measure',
+        TypeNamePlural: 'Unit of Measures',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: UoMID
+        },
+        Description   : {
+            $Type: 'UI.DataField',
+            Value: Description
+        }
+    },
+
+    //Selection Fields
+    SelectionFields: [UoMID],
+
+    //LineItem
+    LineItem       : [
+        {
+            $Type: 'UI.DataField',
+            Label: 'ID',
+            Value: UoMID,
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'Description',
+            Value: Description,
+        },
+    ],
+});
+
+
+// Status
+annotate service.Status with @(UI: {
+
+    Identification : [{Value: Description}],
+
+    //Header Info
+    HeaderInfo     : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : 'Unit of Measure',
+        TypeNamePlural: 'Unit of Measures',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: StatusID
+        },
+        Description   : {
+            $Type: 'UI.DataField',
+            Value: Description
+        }
+    },
+
+    //Selection Fields
+    SelectionFields: [StatusID],
+
+    //LineItem
+    LineItem       : [
+        {
+            $Type: 'UI.DataField',
+            Label: 'ID',
+            Value: StatusID,
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'Description',
+            Value: Description,
+        },
+    ],
+});
+
 // ///----------
 
 
-// annotate service.Header with {
-//     Country @title: 'Country'; //'{i18n>Country}';
-// };
+// Annotations for Search Help Currency
+annotate service.Items with {
+    //Currency
+    Currency @(Common: {
+        Text     : {
+            $value                : Currency_ID,
+            ![@UI.TextArrangement]: #TextOnly,
+        },
+        ValueList: {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'Currency',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: Currency_ID,
+                    ValueListProperty: 'CurrencyID'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: Currency.Description,
+                    ValueListProperty: 'Description'
+                }
+            ]
+        },
+    });
+};
 
-// /**
-//  * Annotations for Search Help
-//  */
-// annotate service.Header with {
-//     //Country
-//     Country @(Common: {
-//         Text     : {
-//             $value                : Country,
-//             ![@UI.TextArrangement]: #TextOnly,
-//         },
-//         ValueList: {
-//             $Type         : 'Common.ValueListType',
-//             CollectionPath: 'Currency',
-//             Parameters    : [
-//                 {
-//                     $Type            : 'Common.ValueListParameterInOut',
-//                     LocalDataProperty: Country,
-//                     ValueListProperty: 'CurrencyID'
-//                 },
-//                 {
-//                     $Type            : 'Common.ValueListParameterInOut',
-//                     LocalDataProperty: Country,
-//                     ValueListProperty: 'Description'
-//                 }
-//             ]
-//         },
-//     });
-// };
+
+// Annotations for Search Help UofM
+annotate service.Items with {
+    //Unit of Measure
+    UnitOfMeasure @(Common: {
+        Text     : {
+            $value                : UnitOfMeasure_ID,
+            ![@UI.TextArrangement]: #TextOnly,
+        },
+        ValueList: {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'UnitOfMeasure',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: UnitOfMeasure_ID,
+                    ValueListProperty: 'UoMID'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: UnitOfMeasure.Description,
+                    ValueListProperty: 'Description'
+                }
+            ]
+        },
+    });
+};
 
 
 // //Items view:
